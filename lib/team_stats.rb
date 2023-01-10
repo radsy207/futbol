@@ -1,4 +1,3 @@
-require 'CSV'
 require_relative './stat_data'
 
 class TeamStats < StatData
