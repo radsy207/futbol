@@ -1,3 +1,4 @@
+require './spec/spec_helper'
 require './lib/team_stats'
 require './lib/stat_data'
 
@@ -76,7 +77,7 @@ describe TeamStats do
   end
 
   describe '#results_by_season()' do
-    it 'returns a hash of seasons (keys) and array of results (values) for a specific team' do
+    it 'returns a hash of seasons(keys) and array of results(values) for a specific team' do
       expected_hash = {
         "20122013" => ['WIN', 'LOSS'],
         "20132014" => ['WIN'],
@@ -90,7 +91,7 @@ describe TeamStats do
   end
 
   describe '#season_team_win_percentage()' do
-    it 'returns a hash of seasons (keys) and win percentages (values)' do
+    it 'returns a hash of seasons(keys) and win percentages(values)' do
       expected_hash = {
         "20122013" => 0.5,
         "20132014" => 1.0,
@@ -103,28 +104,40 @@ describe TeamStats do
     end
   end
 
-  describe '#best_season' do
-    it 'Season with the highest win percentage for a team' do
+  describe '#best_season()' do
+    it 'returns the season with the highest win percentage for a team' do
       expect(team_stats.best_season("1")).to eq("20132014")
       expect(team_stats.best_season("14")).to eq("20122013")
     end
   end
 
-  describe '#worst_season' do
-    it 'Season with the lowest win percentage for a team' do
+  describe '#worst_season()' do
+    it 'returns the season with the lowest win percentage for a team' do
       expect(team_stats.worst_season("3")).to eq("20142015")
       expect(team_stats.worst_season("29")).to eq("20142015")
     end
   end
 
+  describe '#opponent_results()' do
+    it 'returns a hash of team IDs(keys) and results(values) that a given team has played against' do
+      expected_hash = {
+        "15" => ["WIN", "WIN", "LOSS"],
+        "14" => ["WIN", "WIN", "WIN"],
+        "1" => ["LOSS"],
+        "30" => ["TIE"]
+      }
+      expect(team_stats.opponent_results("3")).to eq(expected_hash)
+    end
+  end
+
   describe '#favorite_opponent' do
-    it 'Name of the opponent that has the lowest win percentage against the given team' do
+    it 'returns the name of the opponent that has the lowest win percentage against the given team' do
       expect(team_stats.favorite_opponent("3")).to eq("Atlanta United").or(eq("Orlando City SC"))
     end
   end
 
   describe '#rival' do
-    it 'Name of the opponent that has the highest win percentage against the given team' do
+    it 'returns the name of the opponent that has the highest win percentage against the given team' do
       expect(team_stats.rival("3")).to eq("DC United")
     end
   end
