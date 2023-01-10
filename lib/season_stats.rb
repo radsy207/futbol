@@ -1,6 +1,4 @@
-require 'csv'
-require './lib/stat_tracker'
-require './lib/stat_data'
+require_relative './stat_data'
 
 class SeasonStats < StatData
 
@@ -13,7 +11,6 @@ class SeasonStats < StatData
     @games.each do |row|
       season_game_ids << row[:game_id] if row[:season] == season_id
     end
-    
     season_game_ids
   end
 

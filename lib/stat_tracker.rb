@@ -1,6 +1,5 @@
-require 'CSV'
-require './lib/season_stats'
-require './lib/stat_data'
+require_relative './season_stats'
+require_relative './stat_data'
 
 class StatTracker < StatData
   attr_reader :games,
@@ -25,12 +24,10 @@ class StatTracker < StatData
   end
 
   def highest_total_score
-    # total_score_array = total_score
     total_score.max
   end
 
   def lowest_total_score
-    # total_score_array = total_score
     total_score.min
   end
 
@@ -430,14 +427,14 @@ class StatTracker < StatData
     season_game_ids
   end
 
-  # def season_total_tackles(season)
-  #   season_game_ids = game_ids_for_season(season)
-  #   season_tackles_by_team = Hash.new(0)
-  #   @game_teams.each do |row|
-  #     season_tackles_by_team[row[:team_id]] += row[:tackles].to_i if season_game_ids.include?(row[:game_id])
-  #   end
-  #   season_tackles_by_team
-  # end
+  def season_total_tackles(season)
+    season_game_ids = game_ids_for_season(season)
+    season_tackles_by_team = Hash.new(0)
+    @game_teams.each do |row|
+      season_tackles_by_team[row[:team_id]] += row[:tackles].to_i if season_game_ids.include?(row[:game_id])
+    end
+    season_tackles_by_team
+  end
 
   def most_tackles(season_id)
     @season_stats.most_tackles(season_id)
