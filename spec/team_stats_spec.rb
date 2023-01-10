@@ -14,10 +14,17 @@ describe TeamStats do
     end
   end
 
-  describe '#games_data_by_team_id()' do
-    it 'returns an array of a game_team data for a specific team' do
+  describe '#game_teams_data_by_team_id()' do
+    it 'returns an array of game_team data for a specific team' do
       expect(team_stats.game_teams_data_by_team_id('14')).to be_a(Array)
       expect(team_stats.game_teams_data_by_team_id('14').size).to eq(14)
+    end
+  end
+
+  describe '#games_data_by_team_id()' do
+    it 'returns an array of games data for a specific team' do
+      expect(team_stats.games_data_by_team_id('14')).to be_a(Array)
+      expect(team_stats.games_data_by_team_id('14').size).to eq(14)
     end
   end
 
