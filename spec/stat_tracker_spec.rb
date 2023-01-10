@@ -1,4 +1,5 @@
 # require './spec/spec_helper'
+require './lib/season'
 require './lib/stat_tracker'
 
 describe StatTracker do

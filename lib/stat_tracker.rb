@@ -1,4 +1,5 @@
 require 'CSV'
+require './lib/season'
 
 class StatTracker
   attr_reader :games,
@@ -9,6 +10,7 @@ class StatTracker
     @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
     @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
     @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+    @locations = locations
   end
 
   def self.from_csv(locations)
@@ -429,52 +431,14 @@ class StatTracker
     season_game_ids
   end
 
-  def winningest_coach(season)
-    season_game_ids = game_ids_for_season(season)
-  
-    season_team_wins = Hash.new(0)
-    season_winners_games_played = Hash.new(0)
-    @game_teams.each do |row|
-      if season_game_ids.include?(row[:game_id]) && row[:result] == 'WIN'
-        season_team_wins[row[:head_coach]] += 1
-      end
-      if season_game_ids.include?(row[:game_id])
-        season_winners_games_played[row[:head_coach]] += 1
-      end
-    end
-
-    season_record = Hash.new(0)
-    season_team_wins.each do |head_coach, wins|
-      season_record[head_coach] = (wins.to_f / season_winners_games_played[head_coach])
-    end
-
-    season_winningest_team = season_record.max_by {|k, v| v}
-
-    winningest_coach = season_winningest_team[0]
+  def winningest_coach(season_id)
+    season = Season.new(@locations)
+    season.season_winningest_team(season_id)
   end  
 
-  def worst_coach(season)
-    season_game_ids = game_ids_for_season(season)
-  
-    season_team_losses = Hash.new(0)
-    season_losers_games_played = Hash.new(0)
-    @game_teams.each do |row|
-      if season_game_ids.include?(row[:game_id]) && (row[:result] == 'LOSS' || row[:result] == 'TIE')
-        season_team_losses[row[:head_coach]] += 1
-      end
-      if season_game_ids.include?(row[:game_id])
-        season_losers_games_played[row[:head_coach]] += 1
-      end
-    end
-
-    season_record = Hash.new(0)
-    season_team_losses.each do |head_coach, losses|
-      season_record[head_coach] = (losses.to_f / season_losers_games_played[head_coach])
-    end
-
-    season_worst_team = season_record.max_by {|k, v| v}
-
-    worst_coach = season_worst_team[0]
+  def worst_coach(season_id)
+    season = Season.new(@locations)
+    season.season_losing_team(season_id)
   end  
 
   def season_total_tackles(season)
