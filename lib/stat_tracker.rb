@@ -1,16 +1,15 @@
 require 'CSV'
-require './lib/season'
+require './lib/season_stats'
+require './lib/stat_data'
 
-class StatTracker
+class StatTracker < StatData
   attr_reader :games,
               :teams, 
               :game_teams
   
   def initialize(locations)
-    @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
-    @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
-    @locations = locations
+    super(locations)
+    @season_stats = SeasonStats.new(locations)
   end
 
   def self.from_csv(locations)
@@ -26,13 +25,13 @@ class StatTracker
   end
 
   def highest_total_score
-    total_score_array = total_score
-    total_score_array.max
+    # total_score_array = total_score
+    total_score.max
   end
 
   def lowest_total_score
-    total_score_array = total_score
-    total_score_array.min
+    # total_score_array = total_score
+    total_score.min
   end
 
   def percentage_home_wins
@@ -441,32 +440,26 @@ class StatTracker
   # end
 
   def most_tackles(season_id)
-    season = Season.new(@locations)
-    season.most_tackles(season_id)
+    @season_stats.most_tackles(season_id)
   end
 
   def fewest_tackles(season_id)
-    season = Season.new(@locations)
-    season.fewest_tackles(season_id)
+    @season_stats.fewest_tackles(season_id)
   end
 
   def winningest_coach(season_id)
-    season = Season.new(@locations)
-    season.season_winningest_team(season_id)
-  end  
+    @season_stats.season_winningest_coach(season_id)
+  end
 
   def worst_coach(season_id)
-    season = Season.new(@locations)
-    season.season_losing_team(season_id)
-  end  
+    @season_stats.season_losing_coach(season_id)
+  end
 
   def most_accurate_team(season_id)
-    season = Season.new(@locations)
-    season.most_accurate_team(season_id)
+    @season_stats.most_accurate_team(season_id)
   end
   
   def least_accurate_team(season_id)
-    season = Season.new(@locations)
-    season.least_accurate_team(season_id)
+    @season_stats.least_accurate_team(season_id)
   end
 end

@@ -1,6 +1,8 @@
+require 'csv'
 require './lib/stat_tracker'
+require './lib/stat_data'
 
-class Season < StatTracker
+class SeasonStats < StatData
 
   def initialize(locations)
     super(locations)
@@ -45,12 +47,12 @@ class Season < StatTracker
     seasons_hash
   end
 
-  def season_winningest_team(season_id)
+  def season_winningest_coach(season_id)
     winning_team = season_record(season_id)
     winning_team.max_by {|k, v| v}[0]
   end
 
-  def season_losing_team(season_id)
+  def season_losing_coach(season_id)
     season_game_ids = game_ids_for_season(season_id)
   
     season_team_losses = Hash.new(0)
