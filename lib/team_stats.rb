@@ -28,7 +28,7 @@ class TeamStats < StatData
   end
 
   def goals_by_team_id(team_id)
-    goals = game_teams_data_by_team_id(team_id).map { |row| row[:goals].to_i}
+    game_teams_data_by_team_id(team_id).map { |row| row[:goals].to_i}
   end
 
   def most_goals_scored(team_id)
@@ -63,20 +63,20 @@ class TeamStats < StatData
     results_by_season
   end
 
-  def season_win_percentage(team_id)
-    season_win_percent = {}
+  def season_team_win_percentage(team_id)
+    season_team_win_percent = {}
     results_by_season(team_id).each do |season, results|
-      season_win_percent[season] = results.count('WIN').to_f / results.size
+      season_team_win_percent[season] = (results.count('WIN').to_f / results.size).round(2)
     end
-    season_win_percent
+    season_team_win_percent
   end
 
   def best_season(team_id)
-    season_win_percentage(team_id).max_by{|k, v| v}.first
+    season_team_win_percentage(team_id).max_by{|k, v| v}.first
   end
 
   def worst_season(team_id)
-    season_win_percentage(team_id).min_by{|k, v| v}.first
+    season_team_win_percentage(team_id).min_by{|k, v| v}.first
   end
 
   def opponent_results(team_id)
