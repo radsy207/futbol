@@ -12,11 +12,12 @@ describe TeamStats do
     it 'exists' do
       expect(team_stats).to be_a(TeamStats)
     end
+  end
 
-    it 'has attributes' do
-      expect(team_stats.games).to be_a(CSV::Table)
-      expect(team_stats.teams).to be_a(CSV::Table)
-      expect(team_stats.game_teams).to be_a(CSV::Table)
+  describe '#games_data_by_team_id()' do
+    it 'returns an array of a game_team data for a specific team' do
+      expect(team_stats.game_teams_data_by_team_id('14')).to be_a(Array)
+      expect(team_stats.game_teams_data_by_team_id('14').size).to eq(14)
     end
   end
 
