@@ -238,23 +238,6 @@ describe StatTracker do
     end
   end
 
-  describe '#season_total_tackles(season)' do
-    it 'returns a hash of total tackles by each team for the season' do
-      expected_hash = {
-        "15" => 84,
-        "54" => 59,
-        "14" => 33,
-        "30" => 73,
-        "52" => 137,
-        "1" => 46,
-        "21" => 49,
-        "29" => 30
-      }
-
-      expect(stat_tracker.season_total_tackles("20172018")).to eq(expected_hash)
-    end
-  end
-
   describe '#most_tackles(season)' do
     it 'returns the team name with the most tackles for the season' do
       expect(stat_tracker.most_tackles("20122013")).to eq("Orlando City SC")
@@ -266,57 +249,6 @@ describe StatTracker do
     it 'returns the team name with the fewest tackels for the season' do
       expect(stat_tracker.fewest_tackles("20122013")).to eq("New York Red Bulls")
       expect(stat_tracker.fewest_tackles("20172018")).to eq("Orlando Pride")
-    end
-  end
-
-  describe '#team_shots_by_season(season)' do
-    it 'returns a hash with the team_id(key) and total shots for the season(value)' do
-      expected_hash = {
-        '8' => 5,
-        '1' => 12,
-        '30' => 41,
-        '16' => 41,
-        '3' => 15,
-        '15' => 16,
-        '21' => 7,
-        '14' => 6
-      }
-
-      expect(stat_tracker.team_shots_by_season("20122013")).to eq(expected_hash)
-    end
-  end
-
-  describe '#team_goals_by_season(season)' do
-    it 'returns a hash with the team_id(key) and total goals for the season(value)' do
-      expected_hash = {
-        '8' => 2,
-        '1' => 5,
-        '30' => 10,
-        '16' => 13,
-        '3' => 1,
-        '15' => 4,
-        '21' => 1,
-        '14' => 3
-      }
-
-      expect(stat_tracker.team_goals_by_season("20122013")).to eq(expected_hash)
-    end
-  end
-
-  describe '#team_shots_to_goals_ratio(season)' do
-    it 'returns a hash with the team_id(key) and shots-to-goals ratio for the season(value)' do
-      expected_hash = {
-        '8' => 2.50,
-        '1' => 2.40,
-        '30' => 4.10,
-        '16' => 3.1538461538461537,
-        '3' => 15.00,
-        '15' => 4.00,
-        '21' => 7.00,
-        '14' => 2.00
-      }
-
-      expect(stat_tracker.team_shots_to_goals_ratio("20122013")).to eq(expected_hash)
     end
   end
 

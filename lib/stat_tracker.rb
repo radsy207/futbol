@@ -431,6 +431,25 @@ class StatTracker
     season_game_ids
   end
 
+  # def season_total_tackles(season)
+  #   season_game_ids = game_ids_for_season(season)
+  #   season_tackles_by_team = Hash.new(0)
+  #   @game_teams.each do |row|
+  #     season_tackles_by_team[row[:team_id]] += row[:tackles].to_i if season_game_ids.include?(row[:game_id])
+  #   end
+  #   season_tackles_by_team
+  # end
+
+  def most_tackles(season_id)
+    season = Season.new(@locations)
+    season.most_tackles(season_id)
+  end
+
+  def fewest_tackles(season_id)
+    season = Season.new(@locations)
+    season.fewest_tackles(season_id)
+  end
+
   def winningest_coach(season_id)
     season = Season.new(@locations)
     season.season_winningest_team(season_id)
@@ -441,101 +460,13 @@ class StatTracker
     season.season_losing_team(season_id)
   end  
 
-  def season_total_tackles(season)
-    season_game_ids = game_ids_for_season(season)
-    season_tackles_by_team = Hash.new(0)
-    @game_teams.each do |row|
-      season_tackles_by_team[row[:team_id]] += row[:tackles].to_i if season_game_ids.include?(row[:game_id])
-    end
-    season_tackles_by_team
+  def most_accurate_team(season_id)
+    season = Season.new(@locations)
+    season.most_accurate_team(season_id)
   end
-
-  def most_tackles(season)
-    season_tackles_by_team = season_total_tackles(season)
-    
-    most_tackles = season_tackles_by_team.max_by {|k, v| v}
-
-    most_tackles_team = nil
-    @teams.each do |row|
-      most_tackles_team = row[:teamname] if row[:team_id] == most_tackles.first
-    end
-    most_tackles_team
-  end
-
-  def fewest_tackles(season)
-    season_tackles_by_team = season_total_tackles(season)
-
-    fewest_tackles = season_tackles_by_team.min_by {|k, v| v}
-
-    fewest_tackles_team = nil
-    @teams.each do |row|
-      fewest_tackles_team = row[:teamname] if row[:team_id] == fewest_tackles.first
-    end
-    fewest_tackles_team
-  end
-
-  def team_shots_by_season(season)
-    season_game_ids = game_ids_for_season(season)
-
-    team_shots_by_season = Hash.new(0)
-    @game_teams.each do |row|
-      if season_game_ids.include?(row[:game_id])
-        team_shots_by_season[row[:team_id]] += row[:shots].to_i
-      end
-    end
-    team_shots_by_season
-  end
-
-  def team_goals_by_season(season)
-    season_game_ids = game_ids_for_season(season)
-
-    team_goals_by_season = Hash.new(0)
-    @game_teams.each do |row|
-      if season_game_ids.include?(row[:game_id])
-        team_goals_by_season[row[:team_id]] += row[:goals].to_i
-      end
-    end
-    team_goals_by_season
-  end
-
-  def team_shots_to_goals_ratio(season)
-    season_game_ids = game_ids_for_season(season)
-
-    team_goals_by_season = team_goals_by_season(season)
-    shots_to_goal_ratio_by_team = Hash.new(0)
-    team_shots_by_season(season).each do |team_id, shots|
-      shots_to_goal_ratio_by_team[team_id] = (shots.to_f / team_goals_by_season[team_id])
-    end
-    shots_to_goal_ratio_by_team
-  end
-
-  def most_accurate_team(season)
-    season_game_ids = game_ids_for_season(season)
-    team_shots_by_season(season)
-    team_goals_by_season(season)
-    shots_to_goal_ratios = team_shots_to_goals_ratio(season)
-        
-    best_shots_to_goal_ratio = shots_to_goal_ratios.min_by {|k, v| v}
-    
-    most_accurate_team = nil
-    @teams.each do |row|
-      most_accurate_team = row[:teamname] if row[:team_id] == best_shots_to_goal_ratio[0]
-    end
-    most_accurate_team
-  end
-
-  def least_accurate_team(season)
-    season_game_ids = game_ids_for_season(season)
-    team_shots_by_season(season)
-    team_goals_by_season(season)
-    shots_to_goal_ratios = team_shots_to_goals_ratio(season)
-    
-    highest_shots_to_goal_ratio = shots_to_goal_ratios.max_by {|k, v| v}
-
-    least_accurate_team = nil
-    @teams.each do |row|
-      least_accurate_team = row[:teamname] if row[:team_id] == highest_shots_to_goal_ratio[0]
-    end
-    least_accurate_team
+  
+  def least_accurate_team(season_id)
+    season = Season.new(@locations)
+    season.least_accurate_team(season_id)
   end
 end
