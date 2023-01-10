@@ -15,7 +15,7 @@ describe TeamStats do
   end
 
   describe '#game_teams_data_by_team_id()' do
-    it 'returns an array of game_team data for a specific team' do
+    it 'returns an array of game_teams data for a specific team' do
       expect(team_stats.game_teams_data_by_team_id('14')).to be_a(Array)
       expect(team_stats.game_teams_data_by_team_id('14').size).to eq(14)
     end
@@ -28,31 +28,31 @@ describe TeamStats do
     end
   end
 
-  describe '#average_win_percentage' do
+  describe '#average_win_percentage()' do
     it "returns the average win percentage of a specific team by team ID" do
       expect(team_stats.average_win_percentage("14")).to eq 0.50
     end
   end
 
-  describe '#goals_by_team_id' do
+  describe '#goals_by_team_id()' do
     it "returns an array of goals for a specific team by team ID" do
       expect(team_stats.goals_by_team_id("14")).to eq([2, 1, 2, 3, 2, 0, 3, 2, 4, 2, 2, 3, 1, 2])
     end
   end
 
-  describe '#most_goals_scored' do
+  describe '#most_goals_scored()' do
     it "returns the highest number of goals a team has scored in a single game" do
       expect(team_stats.most_goals_scored("14")).to eq 4
     end
   end
 
-  describe '#fewest_goals_scored' do
+  describe '#fewest_goals_scored()' do
     it "returns the lowest number of goals a team has scored in a single game" do
       expect(team_stats.fewest_goals_scored("1")).to eq 1
     end
   end
 
-  describe '#team_info' do
+  describe '#team_info()' do
     it 'returns a hash of team_id, franchise_id, team_name, abbreviation, link for a specific team' do
       expected_hash_1 = {
         "team_id" => "1", 
@@ -72,6 +72,20 @@ describe TeamStats do
 
       expect(team_stats.team_info("1")).to eq(expected_hash_1)
       expect(team_stats.team_info("14")).to eq(expected_hash_2)
+    end
+  end
+
+  describe '#results_by_season()' do
+    it 'returns a hash of seasons (keys) and array of results (values) for a specific team' do
+      expected_hash = {
+        "20122013" => ['WIN', 'LOSS'],
+        "20132014" => ['WIN'],
+        "20142015" => ['LOSS'],
+        "20152016" => ['LOSS', 'WIN'],
+        "20172018" => ['WIN', 'LOSS', 'LOSS']
+      }
+
+      expect(team_stats.results_by_season("1")).to eq(expected_hash)
     end
   end
 
