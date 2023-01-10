@@ -89,6 +89,20 @@ describe TeamStats do
     end
   end
 
+  describe '#season_team_win_percentage()' do
+    it 'returns a hash of seasons (keys) and win percentages (values)' do
+      expected_hash = {
+        "20122013" => 0.5,
+        "20132014" => 1.0,
+        "20142015" => 0.0,
+        "20152016" => 0.5,
+        "20172018" => 0.33
+      }
+
+      expect(team_stats.season_team_win_percentage("1")).to eq(expected_hash)
+    end
+  end
+
   describe '#best_season' do
     it 'Season with the highest win percentage for a team' do
       expect(team_stats.best_season("1")).to eq("20132014")
