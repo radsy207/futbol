@@ -1,7 +1,6 @@
 require 'CSV'
 
 class StatData
-
 attr_reader :games,
             :teams,
             :game_teams
