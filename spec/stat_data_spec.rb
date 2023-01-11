@@ -18,5 +18,4 @@ describe StatData do
       expect(stat_data.game_teams).to be_a(CSV::Table)
     end
   end
-end
 
