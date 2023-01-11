@@ -1,5 +1,4 @@
 require './spec/spec_helper'
-require './lib/season_stats'
 require './lib/stat_tracker'
 
 describe StatTracker do
@@ -12,13 +11,6 @@ describe StatTracker do
   describe '#initialize' do
     it 'exists' do
       expect(stat_tracker).to be_a(StatTracker)
-    end
-  end
-
-  describe '#total_score' do
-    it 'returns the total number of goals' do
-      expect(stat_tracker.total_score).to be_a(Array)
-      expect(stat_tracker.total_score.sum).to eq(261)
     end
   end
 
@@ -47,11 +39,47 @@ describe StatTracker do
   end
 
   describe '#percentage_ties' do
-    xit 'returns percentage of tied games' do
+    it 'returns percentage of tied games' do
       expect(stat_tracker.percentage_ties).to eq(0.13)
     end
   end
 
+  describe '#count_of_games_by_season' do
+    it 'returns a hash of the number of games(values) per season(keys)' do
+      expected_hash = {
+        "20122013" => 10,
+        "20132014" => 10,
+        "20142015" => 10,
+        "20152016" => 10,
+        "20162017" => 10,
+        "20172018" => 10
+      }
+
+      expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
+    end
+  end
+  
+  describe '#average_goals_per_game' do
+    it 'returns the average number of goals per game' do
+      expect(stat_tracker.average_goals_per_game).to eq(4.35)
+    end
+  end
+
+  describe '#average_goals_by_season' do
+    it 'returns a hash of the average goals(values) by season(keys)' do
+      expected_hash = {
+        "20122013" => 3.90,
+        "20132014" => 4.60,
+        "20142015" => 4.40,
+        "20152016" => 4.70,
+        "20162017" => 4.00,
+        "20172018" => 4.50
+      }
+      
+      expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
+    end
+  end
+  
   describe '#count_of_teams' do
     it "counts all teams" do
       stat_tracker.count_of_teams
@@ -68,24 +96,6 @@ describe StatTracker do
   describe '#worst_offense' do
     it "name of the team with the lowest average number of goals scored per game across all seasons" do
       expect(stat_tracker.worst_offense).to eq "Houston Dynamo"
-    end
-  end
-
-  describe '#away_goals_by_id' do
-    xit "creates a hash of away goals by id" do
-      expect(stat_tracker.away_goals_by_team_id).to be_a(Hash)
-    end
-  end
-
-  describe '#away_games_by_team_id' do
-    it "creates a hash of away games by team id" do
-      expect(stat_tracker.away_games_by_team_id).to be_a(Hash)
-    end
-  end
-
-  describe '#away_goal_avg_per_game' do
-    it "creates a hash of average away goals per game" do
-      expect(stat_tracker.away_goal_avg_per_game).to be_a(Hash)
     end
   end
 
@@ -113,27 +123,9 @@ describe StatTracker do
     end
   end
 
-  describe '#home_games_by_team_id' do
-    it "creates a hash of home games by team id" do
-      expect(stat_tracker.home_games_by_team_id).to be_a(Hash)
-    end
-  end
-
-  describe '#home_goal_avg_per_game' do
-    it "creates a hash of average home goals per game" do
-      expect(stat_tracker.home_goal_avg_per_game).to be_a(Hash)
-    end
-  end
-
   describe '#average_win_percentage' do
     it "states avg win percentage of a specific team by team ID" do
       expect(stat_tracker.average_win_percentage("14")).to eq 0.50
-    end
-  end
-
-  describe '#goals_by_team_id' do
-    it "creates an array of goals per team ID" do
-      expect(stat_tracker.goals_by_team_id("14")).to eq([2, 1, 2, 3, 2, 0, 3, 2, 4, 2, 2, 3, 1, 2])
     end
   end
 
@@ -179,49 +171,6 @@ describe StatTracker do
   describe '#rival' do
     it 'Name of the opponent that has the highest win percentage against the given team' do
       expect(stat_tracker.rival("3")).to eq("DC United")
-    end
-  end
-
-  describe '#count_of_games_by_season' do
-    it 'returns a hash of the number of games(values) per season(keys)' do
-      expected_hash = {
-        "20122013" => 10,
-        "20132014" => 10,
-        "20142015" => 10,
-        "20152016" => 10,
-        "20162017" => 10,
-        "20172018" => 10
-      }
-
-      expect(stat_tracker.count_of_games_by_season).to eq(expected_hash)
-    end
-  end
-
-  describe '#average_goals_per_game' do
-    it 'returns the average number of goals per game' do
-      expect(stat_tracker.average_goals_per_game).to eq(4.35)
-    end
-  end
-
-  describe '#average_goals_by_season' do
-    it 'returns a hash of the average goals(values) by season(keys)' do
-      expected_hash = {
-        "20122013" => 3.90,
-        "20132014" => 4.60,
-        "20142015" => 4.40,
-        "20152016" => 4.70,
-        "20162017" => 4.00,
-        "20172018" => 4.50
-      }
-      
-      expect(stat_tracker.average_goals_by_season).to eq(expected_hash)
-    end
-  end
-
-  describe '#game_ids_for_season(season)' do
-    it 'collects the game ids for a given season' do
-      expect(stat_tracker.game_ids_for_season("20152016")).to be_a(Array)
-      expect(stat_tracker.game_ids_for_season("20152016").size).to eq(10)
     end
   end
   
