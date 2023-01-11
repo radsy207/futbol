@@ -4,7 +4,7 @@ require 'rspec'
 RSpec.describe
 
 describe GameStats do
-  let(:game_stats) {GameStats.from_csv({
+  let(:game_stats) {GameStats.new({
                         :games => './data/games_spec.csv', 
                         :teams => './data/teams.csv', 
                         :game_teams => './data/game_teams_spec.csv'
@@ -34,8 +34,6 @@ describe GameStats do
       expect(game_stats.lowest_total_score).to eq(1)
     end
   end
-
-  
 
   describe '#percentage_home_wins' do
     it 'returns percentage of wins at home' do
@@ -90,6 +88,4 @@ describe GameStats do
       expect(game_stats.average_goals_by_season).to eq(expected_hash)
     end
   end
-
-
 end
