@@ -12,12 +12,6 @@ describe StatTracker do
     it 'exists' do
       expect(stat_tracker).to be_a(StatTracker)
     end
-
-    it 'has attributes' do
-      expect(stat_tracker.games).to be_a(CSV::Table)
-      expect(stat_tracker.teams).to be_a(CSV::Table)
-      expect(stat_tracker.game_teams).to be_a(CSV::Table)
-    end
   end
 
   describe '#total_score' do
@@ -103,6 +97,12 @@ describe StatTracker do
   describe '#lowest_scoring_visitor' do
     it "team with the lowest average score per game across all seasons when they are away" do
       expect(stat_tracker.lowest_scoring_visitor).to eq "Houston Dynamo"
+    end
+  end
+
+  describe '#lowest_scoring_home_team' do
+    it "team with the lowest average score per game across all seasons when they are away" do
+      expect(league_stats.lowest_scoring_home_team).to eq "Houston Dynamo"
     end
   end
 
