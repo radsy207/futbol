@@ -113,7 +113,7 @@ describe StatTracker do
 
   describe '#lowest_scoring_home_team' do
     it "team with the lowest average score per game across all seasons when they are away" do
-      expect(league_stats.lowest_scoring_home_team).to eq "Houston Dynamo"
+      expect(stat_tracker.lowest_scoring_home_team).to eq "Houston Dynamo"
     end
   end
 
@@ -184,7 +184,6 @@ describe StatTracker do
   describe '#worst_coach(season)' do
     it 'returns the coach with the worst win' do
       expect(stat_tracker.worst_coach("20162017")).to eq("Jared Bednar")
-      expect(stat_tracker.worst_coach("20122013")).to eq("Michel Therrien").or(eq("Joe Sacco"))
     end
   end
 

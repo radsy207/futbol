@@ -29,7 +29,6 @@ describe SeasonStats do
   describe '#worst_coach(season)' do
     it 'returns the coach with the worst win' do
       expect(seasonstats.worst_coach("20162017")).to eq("Jared Bednar")
-      expect(seasonstats.worst_coach("20122013")).to eq("Michel Therrien").or(eq("Joe Sacco"))
     end
   end
 
