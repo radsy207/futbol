@@ -4,11 +4,6 @@ class GameStats < StatData
   
   def initialize(locations)
     super(locations)
-    # @games = GameStats.new(locations)
-  end
-
-  def self.from_csv(locations)
-    GameStats.new(locations)
   end
    
   def total_score
