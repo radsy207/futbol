@@ -1,4 +1,4 @@
-# require './spec/spec_helper'
+require './spec/spec_helper'
 require './lib/stat_tracker'
 
 describe StatTracker do
@@ -11,12 +11,6 @@ describe StatTracker do
   describe '#initialize' do
     it 'exists' do
       expect(stat_tracker).to be_a(StatTracker)
-    end
-
-    it 'has attributes' do
-      expect(stat_tracker.games).to be_a(CSV::Table)
-      expect(stat_tracker.teams).to be_a(CSV::Table)
-      expect(stat_tracker.game_teams).to be_a(CSV::Table)
     end
   end
 

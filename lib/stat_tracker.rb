@@ -1,27 +1,32 @@
-require 'CSV'
+require_relative './stat_data'
+require_relative './game_stats'
 
-class StatTracker
-  attr_reader :games,
-              :teams, 
-              :game_teams
+class StatTracker < StatData
   
   def initialize(locations)
-    @games = CSV.read(locations[:games], headers: true, header_converters: :symbol)
-    @teams = CSV.read(locations[:teams], headers: true, header_converters: :symbol)
-    @game_teams = CSV.read(locations[:game_teams], headers: true, header_converters: :symbol)
+    super(locations)
+    # @games_stats = Game.new(locations)
   end
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
    
-  def total_score
-    total_score_array = []
-    @games.each do |row|
+  total_score_array = []
+   @games.each do |row|
       total_score_array << row[:away_goals].to_i + row[:home_goals].to_i
     end
-    total_score_array
-  end
+   total_score_array
+
+
+
+
+
+
+
+
+
+
 
   def highest_total_score
     total_score_array = total_score
