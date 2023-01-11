@@ -59,8 +59,7 @@ class GameStats < StatData
   end
   
   def average_goals_per_game
-    total_score_array = total_score
-    (total_score_array.sum.to_f/@games.size).round(2)
+    percentage_formula(total_score.sum)
   end
   
   def average_goals_by_season
