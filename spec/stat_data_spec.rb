@@ -13,9 +13,9 @@ describe StatData do
     end
 
     it 'has attributes' do
-      expect(stat_tracker.games).to be_a(CSV::Table)
-      expect(stat_tracker.teams).to be_a(CSV::Table)
-      expect(stat_tracker.game_teams).to be_a(CSV::Table)
+      expect(stat_data.games).to be_a(CSV::Table)
+      expect(stat_data.teams).to be_a(CSV::Table)
+      expect(stat_data.game_teams).to be_a(CSV::Table)
     end
   end
 end

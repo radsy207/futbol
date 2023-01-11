@@ -1,4 +1,3 @@
-# require './spec/spec_helper'
 require './lib/season_stats'
 require './lib/stat_tracker'
 

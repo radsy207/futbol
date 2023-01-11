@@ -445,11 +445,11 @@ class StatTracker < StatData
   end
 
   def winningest_coach(season_id)
-    @season_stats.season_winningest_coach(season_id)
+    @season_stats.winningest_coach(season_id)
   end
 
   def worst_coach(season_id)
-    @season_stats.season_losing_coach(season_id)
+    @season_stats.worst_coach(season_id)
   end
 
   def most_accurate_team(season_id)
