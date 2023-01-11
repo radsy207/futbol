@@ -33,8 +33,7 @@ class GameStats < StatData
     end
     percentage_formula(count)
   end
-  # require 'pry' ;binding.pry
-
+  
   def percentage_visitor_wins
     count = @games.count do |row|
       row[:away_goals].to_i > row[:home_goals].to_i
@@ -65,15 +64,14 @@ class GameStats < StatData
   def average_goals_by_season
     goals_by_season = Hash.new(0)
     @games.each do |row|
-      numerator = (row[:away_goals].to_i + row[:home_goals].to_i)
-      goals_by_season[row[:season]] += numerator
+     total_goals = (row[:away_goals].to_i + row[:home_goals].to_i)
+     goals_by_season[row[:season]] += total_goals
     end
     
-    games_by_season = count_of_games_by_season
-    games_by_season.each do |key, value|
-      denominator = value
-      numerator = goals_by_season[key]
-      goals_by_season[key] = (numerator/denominator.to_f).round(2)
+     require 'pry' ;binding.pry
+    count_of_games_by_season.each do |season, game_count|
+      goal_count = goals_by_season[season]
+      goals_by_season[season] = (goal_count/game_count.to_f).round(2)
     end
     goals_by_season
   end
