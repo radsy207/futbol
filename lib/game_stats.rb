@@ -48,7 +48,6 @@ class GameStats < StatData
     percentage_formula(count)
   end
   
-  
   def count_of_games_by_season
     games_by_season = Hash.new(0)
     @games.each do |row|
@@ -68,7 +67,6 @@ class GameStats < StatData
      goals_by_season[row[:season]] += total_goals
     end
     
-     require 'pry' ;binding.pry
     count_of_games_by_season.each do |season, game_count|
       goal_count = goals_by_season[season]
       goals_by_season[season] = (goal_count/game_count.to_f).round(2)
